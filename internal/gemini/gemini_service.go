@@ -29,3 +29,17 @@ func (s *service) GetResponse(c context.Context, req *GeminiResponseReq) (*Gemin
 
 	return res, nil
 }
+
+func (s *service) GetImageResponse(c context.Context, req *GeminiImageQueryReq) (*GeminiImageQueryRes, error) {
+	println(req.Query)
+
+	only, err := util.GenerateContentImagePrompt(req.File, req.FileType, req.Query)
+	if err != nil {
+		return nil, err
+	}
+
+	res := &GeminiImageQueryRes{
+		Message: only,
+	}
+	return res, nil
+}
